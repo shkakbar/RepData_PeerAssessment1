@@ -31,9 +31,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## R Markdown
-
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
 # Load Libraries
@@ -76,7 +74,7 @@ From the output, the p-value > 0.05 implying that the distribution of the data a
 
 3. Create Histogram on steps per day
 ```{r}
-hist(steps_by_day$steps, main = paste("Total Steps Each Day"), col="blue",xlab="Number of Steps")
+hist(steps_by_day$steps, main = paste("Total Steps Each Day"), col="green",xlab="Number of Steps")
 ```
 
 4. Show average(mean) and median number of steps taken during the day
@@ -86,8 +84,9 @@ rmean
 
 rmedian <- median(steps_by_day$steps)
 rmedian
+
+paste("Mean is:", format(rmean,2), "Medien is:", format(rmedian,2), sep = " ")
 ```
-Mean is: 10766.19, Median is: 10765
 
 ## What is the average daily activity pattern?
 
@@ -103,9 +102,11 @@ plot(steps_by_interval$interval,steps_by_interval$steps, type="l", xlab="Interva
 
 3. Find interval with most average steps
 ```{r}
-steps_by_interval[which.max(steps_by_interval$steps),1]
+stpbyinterval <- steps_by_interval[which.max(steps_by_interval$steps),1]
+
+paste("Interval with most steps is ", format(stpbyinterval,2), sep = " ")
 ```
-Interval with most steps is 835
+
 
 ## Imputing missing values
 
@@ -113,9 +114,10 @@ Note that there are a number of days/intervals where there are missing values (c
 
 1. Check total number of missing values in the dataset
 ```{r}
-sum(is.na(dfactivities)) # OR sum(!complete.cases(dfactivities))
+missingvalues <- sum(is.na(dfactivities)) # OR sum(!complete.cases(dfactivities))
+
+paste("Total Number of Missing values are", missingvalues, sep = " ")
 ```
-Total Number of Missing values are 2304
 
 2. Using Mean for the day compute missing values
 ```{r}
